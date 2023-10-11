@@ -64,7 +64,7 @@ readDistance: readDistance.o vl53l1x_linux.o \
 		vl53l1_silicon_core.o \
 	    -li2c
 
-readDistance.o: readDistance.cpp 
+readDistance.o: readDistance.cpp $(LINUX_SRC)/vl53l1x_linux.hpp 
 	g++ -std=c++11 -Wall -I$(LIB_SRC) -I$(LINUX_SRC) -c readDistance.cpp
 
 vl53l1x_linux.o: $(LINUX_SRC)/vl53l1x_linux.cpp 

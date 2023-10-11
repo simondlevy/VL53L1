@@ -1,6 +1,14 @@
 extern "C" {
 #include "st_src/vl53l1_api.h"
 
+#include <linux/i2c-dev.h>
+#include <i2c/smbus.h>
+#include <sys/ioctl.h>
+#include <string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
 VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t index, 
         uint8_t * pdata, uint32_t   count)
 {
@@ -18,6 +26,7 @@ VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t usec)
     return VL53L1_ERROR_NONE;
 }
 
+// Below are intentionally stubbed --------------------------------------------
 
 VL53L1_Error VL53L1_WrWord(VL53L1_Dev_t *pdev, uint16_t index, uint16_t data)
 {

@@ -30,12 +30,38 @@
 
 #include "vl53l1x.hpp"
 
+#include <linux/i2c-dev.h>
+#include <sys/ioctl.h>
+#include <string.h>
+#include <stdio.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+extern "C" {
+#include <i2c/smbus.h>
+}
+
 class VL53L1X_Linux : public VL53L1X {
 
     public:
 
-        VL53L1X_Linux(const uint8_t devAddr=0x29) 
+        VL53L1X_Linux(const uint8_t bus=1, const uint8_t devAddr=0x29) 
             : VL53L1X(NULL)
         {
+            // Attempt to open /dev/i2c-<NUMBER>
+            char fname[32];
+            sprintf(fname,"/dev/i2c-%d", bus);
+            int fd = open(fname, O_RDWR);
+            if (fd < 0) {
+                fprintf(stderr, "Unable to open %s\n", fname);
+                exit(1);
+            }
+
+            // Attempt to make this device an I2C slave
+            if (ioctl(fd, I2C_SLAVE, devAddr) < 0) {
+                fprintf(stderr, "ioctl failed on %s\n", fname);
+                exit(1);
+            }
+
         }
 };
