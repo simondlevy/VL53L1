@@ -45,8 +45,6 @@ class VL53L1X {
           */
         bool begin(void)
         {
-            _dev.devAddr = 0x29;
-
             auto status = VL53L1_DataInit(&_dev);
             status = VL53L1_StaticInit(&_dev);
 
@@ -56,7 +54,6 @@ class VL53L1X {
 
             return status == VL53L1_ERROR_NONE;
         }
-
 
         /**
           * Returns distance in mm on success, -1 on failure
@@ -97,9 +94,10 @@ class VL53L1X {
 
     protected:
 
-        VL53L1X(void * i2c_device)
+        VL53L1X(void * i2c_device, const uint8_t devAddr=0x29)
         {
             _dev.I2Cx = i2c_device;
+            _dev.devAddr = devAddr;
         }
 
     private:

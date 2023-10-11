@@ -36,7 +36,7 @@ class VL53L1X_Arduino : public VL53L1X {
 
     public:
 
-        VL53L1X_Arduino(TwoWire * twoWire=&Wire) 
+        VL53L1X_Arduino(TwoWire * twoWire=&Wire, const uint8_t devAddr=0x29) 
             : VL53L1X((void *)twoWire)
         {
         }
