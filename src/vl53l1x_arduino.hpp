@@ -30,8 +30,14 @@
 
 #include "vl53l1x.hpp"
 
+#include <Wire.h>
+
 class VL53L1X_Arduino : public VL53L1X {
 
     public:
 
+        VL53L1X_Arduino(TwoWire * twoWire=&Wire) 
+            : VL53L1X((void *)twoWire)
+        {
+        }
 };

@@ -30,7 +30,7 @@
 
 #include "vl53l1x_arduino.hpp"
 
-static VL53L1X_Arduino sensor;
+static VL53L1X_Arduino sensor; 
 
 void setup(void)
 {

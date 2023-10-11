@@ -7,34 +7,37 @@ extern "C" {
 VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t index, 
         uint8_t * pdata, uint32_t   count)
 {
+    TwoWire * twoWire = (TwoWire *)pdev->I2Cx;
+
     int status = 0;
+
     //Loop until the port is transmitted correctly
     do
     {
-        Wire.beginTransmission(pdev->devAddr);
+        twoWire->beginTransmission(pdev->devAddr);
         uint8_t buffer[2];
         buffer[0]=(uint8_t) (index>>8);
         buffer[1]=(uint8_t) (index&0xFF);
-        Wire.write(buffer, 2);
-        status = Wire.endTransmission(false);
+        twoWire->write(buffer, 2);
+        status = twoWire->endTransmission(false);
         //Fix for some STM32 boards
         //Reinitialize th i2c bus with the default parameters
 #ifdef ARDUINO_ARCH_STM32
         if (status)
         {
-            Wire.end();
-            Wire.begin();
+            twoWire->end();
+            twoWire->begin();
         }
 #endif
         //End of fix
     }
     while(status != 0);
 
-    Wire.requestFrom((int)pdev->devAddr, (int) count);
+    twoWire->requestFrom((int)pdev->devAddr, (int) count);
 
     int i=0;
-    while (Wire.available()) {
-        pdata[i] = Wire.read();
+    while (twoWire->available()) {
+        pdata[i] = twoWire->read();
         i++;
     }
 
@@ -45,15 +48,17 @@ VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t index,
 VL53L1_Error VL53L1_WriteMulti(VL53L1_Dev_t *pdev, uint16_t index, 
         uint8_t * pdata, uint32_t count)
 {
-    Wire.beginTransmission(pdev->devAddr);
+    TwoWire * twoWire = (TwoWire *)pdev->I2Cx;
+
+    twoWire->beginTransmission(pdev->devAddr);
     uint8_t buffer[2];
     buffer[0]=(uint8_t) (index>>8);
     buffer[1]=(uint8_t) (index&0xFF);
-    Wire.write(buffer, 2);
+    twoWire->write(buffer, 2);
     for (uint16_t i = 0 ; i < count ; i++)
-        Wire.write(pdata[i]);
+        twoWire->write(pdata[i]);
 
-    Wire.endTransmission(true);
+    twoWire->endTransmission(true);
     return VL53L1_ERROR_NONE;
 }
 

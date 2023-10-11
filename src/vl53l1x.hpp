@@ -78,6 +78,13 @@ class VL53L1X {
 
         }
 
+    protected:
+
+        VL53L1X(void * i2c_device)
+        {
+            _dev.I2Cx = i2c_device;
+        }
+
     private:
 
         VL53L1_Dev_t _dev;
