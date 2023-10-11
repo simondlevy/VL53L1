@@ -26,23 +26,12 @@
  SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.#include <Arduino.h>
  */
 
-#include <Wire.h>
+#pragma once
 
-#include "vl53l1x_arduino.hpp"
+#include "vl53l1x.hpp"
 
-static VL53L1X_Arduino sensor;
+class VL53L1X_Arduino : public VL53L1X {
 
-void setup(void)
-{
-    Wire.begin();
+    public:
 
-    Serial.begin(115200);
-
-    sensor.begin();
-}
-
-void loop(void)
-{
-    Serial.print(sensor.readDistance());
-    Serial.println(" mm");
-}
+};
