@@ -3,12 +3,6 @@
 
 #include "vl53l1x.hpp"
 
-extern "C" {
-#include "vl53l1_api.h"
-#include "vl53l1_core.h"
-#include "vl53l1_helpers.h"
-}
-
 static VL53L1X sensor;
 
 void setup(void)
