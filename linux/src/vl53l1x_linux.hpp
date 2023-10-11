@@ -23,26 +23,19 @@
  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.#include <Arduino.h>
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.#include <Linux.h>
  */
 
-#include <Wire.h>
+#pragma once
 
-#include "vl53l1x_arduino.hpp"
+#include "vl53l1x.hpp"
 
-static VL53L1X_Arduino sensor; 
+class VL53L1X_Linux : public VL53L1X {
 
-void setup(void)
-{
-    Wire.begin();
+    public:
 
-    Serial.begin(115200);
-
-    sensor.begin();
-}
-
-void loop(void)
-{
-    Serial.print(sensor.readDistance());
-    Serial.println(" mm");
-}
+        VL53L1X_Linux(const uint8_t devAddr=0x29) 
+            : VL53L1X(NULL)
+        {
+        }
+};

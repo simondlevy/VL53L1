@@ -28,10 +28,8 @@
 
 #pragma once
 
-extern "C" {
 #include "st_src/vl53l1_api.h"
 #include "st_src/vl53l1_helpers.h"
-}
 
 
 class VL53L1X {

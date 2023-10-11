@@ -65,7 +65,8 @@ VL53L1_Error VL53L1_WriteMulti(VL53L1_Dev_t *pdev, uint16_t index,
 VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t usec)
 {
     delayMicroseconds(usec);
-    return 0;
+
+    return VL53L1_ERROR_NONE;
 }
 
 }
