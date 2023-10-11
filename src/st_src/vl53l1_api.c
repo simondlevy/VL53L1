@@ -157,6 +157,7 @@ static int32_t BDTable[VL53L1_TUNING_MAX_TUNABLE_KEY] = {
 #define VL53L1_NVM_POWER_UP_DELAY_US             50
 #define VL53L1_NVM_READ_TRIGGER_DELAY_US          5
 
+#ifndef __linux
 static VL53L1_Error VL53L1_nvm_enable(
 	VL53L1_DEV      Dev,
 	uint16_t        nvm_ctrl_pulse_width,
@@ -402,6 +403,7 @@ static VL53L1_Error VL53L1_read_nvm_raw_data(
 	return status;
 
 }
+#endif 
 
 static VL53L1_Error SingleTargetXTalkCalibration(VL53L1_DEV Dev)
 {
