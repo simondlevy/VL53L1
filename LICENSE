@@ -1,4 +1,4 @@
-/*
+ Copyright (C) 2016, STMicroelectronics International N.V.
  Copyright (C) 2023, Simon D. Levy
  All rights reserved.
 
@@ -23,26 +23,4 @@
  LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
  ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.#include <Arduino.h>
- */
-
-#include <Wire.h>
-
-#include "vl53l1x.hpp"
-
-static VL53L1X sensor;
-
-void setup(void)
-{
-    Wire.begin();
-
-    Serial.begin(115200);
-
-    sensor.begin();
-}
-
-void loop(void)
-{
-    Serial.print(sensor.readDistance());
-    Serial.println(" mm");
-}
+ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
