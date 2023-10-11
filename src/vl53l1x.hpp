@@ -48,6 +48,24 @@ class VL53L1X {
 
         } distanceMode_t;
 
+         /**
+         * Returns true on success, false on failure
+         */
+        bool setDistanceMode(distanceMode_t distanceMode)
+        {
+            return VL53L1_SetDistanceMode(&_dev, distanceMode) == VL53L1_ERROR_NONE;
+        }
+
+        /**
+         * Returns true on success, false on failure
+         */
+        bool setTimingBudgetMsec(const uint32_t msec)
+        {
+
+            return VL53L1_SetMeasurementTimingBudgetMicroSeconds(
+                    &_dev, msec*1000) == VL53L1_ERROR_NONE;
+        }
+
         /**
          * Returns true on success, false on failure
          */
@@ -56,11 +74,6 @@ class VL53L1X {
             auto status = VL53L1_DataInit(&_dev);
 
             status |= VL53L1_StaticInit(&_dev);
-
-            status |= VL53L1_SetDistanceMode(&_dev, _distance_mode);
-
-            status |= VL53L1_SetMeasurementTimingBudgetMicroSeconds(
-                    &_dev, _timing_budget_usec);
 
             return status == VL53L1_ERROR_NONE;
         }
@@ -107,25 +120,13 @@ class VL53L1X {
 
     protected:
 
-        VL53L1X(
-                void * i2c_device,
-                const uint8_t devAddr=0x29, 
-                const distanceMode_t distanceMode=DISTANCE_MODE_MEDIUM,
-                const uint32_t timingBudgetMsec=25)
-
+        VL53L1X( void * i2c_device, const uint8_t devAddr=0x29)
         {
             _dev.I2Cx = i2c_device;
             _dev.devAddr = devAddr;
-
-            _distance_mode = distanceMode;
-            _timing_budget_usec = timingBudgetMsec * 1000;
         }
 
     private:
 
         VL53L1_Dev_t _dev;
-
-        distanceMode_t _distance_mode;
-
-        uint32_t _timing_budget_usec;
 };
