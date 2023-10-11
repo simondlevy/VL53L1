@@ -32,7 +32,7 @@
 #include <Wire.h>
 
 extern "C" {
-#include "vl53l1_api.h"
+#include "st_src/vl53l1_api.h"
 }
 
 
