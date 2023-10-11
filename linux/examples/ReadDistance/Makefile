@@ -16,7 +16,7 @@
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
 # WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
 # NON-INFRINGEMENT OF INTELLECTUAL PROPERTY RIGHTS ARE DISCLAIMED.
-# IN NO EVENT SHALL STMICROELECTRONICS INTERNATIONAL N.V. BE LIABLE FOR ANY
+# IN NO EVENT SHEXE STMICROELECTRONICS INTERNATIONAL N.V. BE LIABLE FOR ANY
 # DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
 # (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
 # LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
@@ -25,7 +25,7 @@
 # SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.#include <Arduino.h>
 
   
-ALL = readDistance
+EXE = readDistance
 
 LIB_SRC = ../../../src
 
@@ -33,7 +33,7 @@ ST_SRC = $(LIB_SRC)/st_src
 
 LINUX_SRC = ../../src
 
-all: $(ALL)
+all: $(EXE)
 
 readDistance: readDistance.o vl53l1x_linux.o \
 		vl53l1_api.o \
@@ -47,10 +47,22 @@ readDistance: readDistance.o vl53l1x_linux.o \
 		vl53l1_error_strings.o \
 		vl53l1_helpers.o \
 		vl53l1_register_funcs.o \
-		vl53l1_silicon_core.o \
-		vl53l1_wait.o
+		vl53l1_silicon_core.o
 
-	g++ -std=c++11 -o readDistance readDistance.o vl53l1x_linux.o -li2c
+	g++ -o readDistance readDistance.o vl53l1x_linux.o \
+		vl53l1_api.o \
+		vl53l1_api_calibration.o \
+		vl53l1_api_core.o \
+		vl53l1_api_debug.o \
+		vl53l1_api_preset_modes.o \
+		vl53l1_api_strings.o \
+		vl53l1_core.o \
+		vl53l1_core_support.o \
+		vl53l1_error_strings.o \
+		vl53l1_helpers.o \
+		vl53l1_register_funcs.o \
+		vl53l1_silicon_core.o \
+	    -li2c
 
 readDistance.o: readDistance.cpp 
 	g++ -std=c++11 -Wall -I$(LIB_SRC) -I$(LINUX_SRC) -c readDistance.cpp
@@ -59,44 +71,46 @@ vl53l1x_linux.o: $(LINUX_SRC)/vl53l1x_linux.cpp
 	g++ -std=c++11 -Wall -I$(LIB_SRC) -c $(LINUX_SRC)/vl53l1x_linux.cpp
 
 
+FOO = -DVL53L1_NOCALIB
+
 vl53l1_api.o : $(ST_SRC)/vl53l1_api.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api.c 
 
 vl53l1_api_calibration.o : $(ST_SRC)/vl53l1_api_calibration.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_calibration.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_calibration.c 
 
 vl53l1_api_core.o : $(ST_SRC)/vl53l1_api_core.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_core.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_core.c 
 
 vl53l1_api_debug.o : $(ST_SRC)/vl53l1_api_debug.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_debug.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_debug.c 
 
 vl53l1_api_preset_modes.o : $(ST_SRC)/vl53l1_api_preset_modes.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_preset_modes.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_preset_modes.c 
 
 vl53l1_api_strings.o : $(ST_SRC)/vl53l1_api_strings.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_strings.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_api_strings.c 
 
 vl53l1_core.o : $(ST_SRC)/vl53l1_core.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_core.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_core.c 
 
 vl53l1_core_support.o : $(ST_SRC)/vl53l1_core_support.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_core_support.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_core_support.c 
 
 vl53l1_error_strings.o : $(ST_SRC)/vl53l1_error_strings.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_error_strings.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_error_strings.c 
 
 vl53l1_helpers.o : $(ST_SRC)/vl53l1_helpers.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_helpers.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_helpers.c 
 
 vl53l1_register_funcs.o : $(ST_SRC)/vl53l1_register_funcs.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_register_funcs.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_register_funcs.c 
 
 vl53l1_silicon_core.o : $(ST_SRC)/vl53l1_silicon_core.c 
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_silicon_core.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_silicon_core.c 
 
 vl53l1_wait.o : $(ST_SRC)/vl53l1_wait.c
-	gcc -Wall -c -I$(ST_SRC) $(ST_SRC)/vl53l1_wait.c 
+	gcc -Wall $(FOO) -c -I$(ST_SRC) $(ST_SRC)/vl53l1_wait.c 
 
 
 run: readDistance
@@ -106,4 +120,4 @@ edit:
 	vim readDistance.cpp
 
 clean:
-	rm -f $(ALL) *.o *~
+	rm -f $(EXE) *.o *~
