@@ -40,6 +40,9 @@ class VL53L1X {
 
     public:
 
+        /**
+          * Returns true on success, false on failure
+          */
         bool begin(void)
         {
             _dev.devAddr = 0x29;
@@ -55,7 +58,10 @@ class VL53L1X {
         }
 
 
-        int16_t readDistance(void)
+        /**
+          * Returns distance in mm on success, -1 on failure
+          */
+         int16_t readDistance(void)
         {
             auto status = VL53L1_ClearInterruptAndStartMeasurement(&_dev);   
 
@@ -76,6 +82,17 @@ class VL53L1X {
 
             return status == VL53L1_ERROR_NONE ? rangingData.RangeMilliMeter : -1;
 
+        }
+
+        bool changeAddress(const uint8_t oldAddress, const uint8_t newAddress)
+        {
+            _dev.devAddr = oldAddress;
+    
+            auto status = VL53L1_SetDeviceAddress(&_dev, newAddress);
+
+            _dev.devAddr = newAddress;
+
+            return status == VL53L1_ERROR_NONE;
         }
 
     protected:
