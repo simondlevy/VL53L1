@@ -28,11 +28,9 @@
 
 #pragma once
 
-#include <Arduino.h>
-#include <Wire.h>
-
 extern "C" {
 #include "st_src/vl53l1_api.h"
+#include "st_src/vl53l1_helpers.h"
 }
 
 
@@ -91,7 +89,7 @@ class VL53L1X {
                 if (dataReady) {
                     break;
                 }
-                delay(2);
+                VL53L1_WaitUs(&_dev, 2000);
             }
 
             VL53L1_RangingMeasurementData_t rangingData;
