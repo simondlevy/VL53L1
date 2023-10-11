@@ -1,9 +1,9 @@
 /*
- Copyright (C) 2023, Simon D. Levy
- All rights reserved.
+   Copyright (C) 2023, Simon D. Levy
+   All rights reserved.
 
- Redistribution and use in source and binary forms, with or without
- modification, are permitted provided that the following conditions are met:
+   Redistribution and use in source and binary forms, with or without
+   modification, are permitted provided that the following conditions are met:
  * Redistributions of source code must retain the above copyright
  notice, this list of conditions and the following disclaimer.
  * Redistributions in binary form must reproduce the above copyright
@@ -49,11 +49,11 @@ class VL53L1X {
         } distanceMode_t;
 
         /**
-          * Returns true on success, false on failure
-          */
+         * Returns true on success, false on failure
+         */
         bool begin(void)
         {
-            int8_t status = VL53L1_DataInit(&_dev);
+            auto status = VL53L1_DataInit(&_dev);
 
             status |= VL53L1_StaticInit(&_dev);
 
@@ -66,15 +66,15 @@ class VL53L1X {
         }
 
         /**
-          * Returns distance in mm on success, -1 on failure
-          */
-         int16_t readDistance(void)
+         * Returns distance in mm on success, -1 on failure
+         */
+        int16_t readDistance(void)
         {
             auto status = VL53L1_ClearInterruptAndStartMeasurement(&_dev);   
 
             while (true) {
                 uint8_t dataReady=0;
-                status = VL53L1_GetMeasurementDataReady(&_dev, &dataReady);
+                status |= VL53L1_GetMeasurementDataReady(&_dev, &dataReady);
                 if (dataReady) {
                     break;
                 }
@@ -83,18 +83,21 @@ class VL53L1X {
 
             VL53L1_RangingMeasurementData_t rangingData;
 
-            status = VL53L1_GetRangingMeasurementData(&_dev, &rangingData);
+            status |= VL53L1_GetRangingMeasurementData(&_dev, &rangingData);
 
-            status = VL53L1_StopMeasurement(&_dev);
+            status |= VL53L1_StopMeasurement(&_dev);
 
             return status == VL53L1_ERROR_NONE ? rangingData.RangeMilliMeter : -1;
 
         }
 
+        /**
+         * Returns true on success, false on failure
+         */
         bool changeAddress(const uint8_t oldAddress, const uint8_t newAddress)
         {
             _dev.devAddr = oldAddress;
-    
+
             auto status = VL53L1_SetDeviceAddress(&_dev, newAddress);
 
             _dev.devAddr = newAddress;
