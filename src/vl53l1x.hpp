@@ -44,7 +44,7 @@ class VL53L1X {
 
         } distanceMode_t;
 
-         /**
+        /**
          * Returns true on success, false on failure
          */
         bool setDistanceMode(distanceMode_t distanceMode)
@@ -57,7 +57,6 @@ class VL53L1X {
          */
         bool setTimingBudgetMsec(const uint32_t msec)
         {
-
             return VL53L1_SetMeasurementTimingBudgetMicroSeconds(
                     &_dev, msec*1000) == VL53L1_ERROR_NONE;
         }
@@ -65,11 +64,14 @@ class VL53L1X {
         /**
          * Returns true on success, false on failure
          */
-        bool begin(void)
+         bool begin(void)
         {
+
             auto status = VL53L1_DataInit(&_dev);
 
-            status |= VL53L1_StaticInit(&_dev);
+            if (status == VL53L1_ERROR_NONE) {
+                status = VL53L1_StaticInit(&_dev);
+            }
 
             return status == VL53L1_ERROR_NONE;
         }
