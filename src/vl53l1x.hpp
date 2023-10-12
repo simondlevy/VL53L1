@@ -118,13 +118,15 @@ class VL53L1X {
 
     protected:
 
+        VL53L1X(void)
+        {
+        }
+
         VL53L1X( void * i2c_device, const uint8_t devAddr=0x29)
         {
             _dev.I2Cx = i2c_device;
             _dev.devAddr = devAddr;
         }
-
-    private:
 
         VL53L1_Dev_t _dev;
 };
