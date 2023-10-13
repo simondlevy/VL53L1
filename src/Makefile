@@ -1,2 +1,2 @@
 clean:
-	rm -rf *.o st_src/*.o
+	rm -rf *.o vendor/*.o

@@ -2,7 +2,7 @@
 #include <Wire.h>
 
 extern "C" {
-#include "st_src/vl53l1_api.h"
+#include "vendor/vl53l1_api.h"
 
 VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t index, 
         uint8_t * pdata, uint32_t   count)
