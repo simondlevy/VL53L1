@@ -404,7 +404,7 @@ VL53L1_Error VL53L1_software_reset(
 		status =
 			VL53L1_WaitUs(
 				Dev,
-				VL53L1_SOFTWARE_RESET_DURATION_US);
+				VL53L1_SOFTWARE_RESET_DURATION_US); // XXX
 
 	/* release reset */
 	if (status == VL53L1_ERROR_NONE)

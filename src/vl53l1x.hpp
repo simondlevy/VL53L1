@@ -132,3 +132,14 @@ class VL53L1X {
 
         VL53L1_Dev_t _dev;
 };
+
+extern "C" {
+
+VL53L1_Error VL53L1_WaitUs(VL53L1_Dev_t *pdev, int32_t usec)
+{
+    delayMicroseconds(usec);
+
+    return VL53L1_ERROR_NONE;
+}
+
+}

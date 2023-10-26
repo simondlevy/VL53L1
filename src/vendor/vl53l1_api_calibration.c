@@ -482,7 +482,7 @@ VL53L1_Error VL53L1_run_offset_calibration(
 		/* Wait for Stop (abort) range to complete */
 
 		if (status == VL53L1_ERROR_NONE)
-			status = VL53L1_WaitUs(Dev, 1000);
+			status = VL53L1_WaitUs(Dev, 1000); // XXX 
 
 		/* generate average values */
 		if (poffset->no_of_samples > 0) {

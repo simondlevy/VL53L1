@@ -196,7 +196,7 @@ static VL53L1_Error VL53L1_nvm_enable(
 	if (status == VL53L1_ERROR_NONE)
 		status = VL53L1_WaitUs(
 					Dev,
-					VL53L1_ENABLE_POWERFORCE_SETTLING_TIME_US);
+					VL53L1_ENABLE_POWERFORCE_SETTLING_TIME_US); // XXX
 
 	/*  Power up NVM */
 
@@ -219,7 +219,7 @@ static VL53L1_Error VL53L1_nvm_enable(
 	if (status == VL53L1_ERROR_NONE)
 		status = VL53L1_WaitUs(
 					Dev,
-					nvm_power_up_delay_us);
+					nvm_power_up_delay_us); // XXX
 
 	/* Select read mode and set control pulse width */
 
@@ -285,7 +285,7 @@ static VL53L1_Error VL53L1_nvm_read(
 		if (status == VL53L1_ERROR_NONE)
 			status = VL53L1_WaitUs(
 						Dev,
-						VL53L1_NVM_READ_TRIGGER_DELAY_US);
+						VL53L1_NVM_READ_TRIGGER_DELAY_US); // XXX
 
 		if (status == VL53L1_ERROR_NONE)
 			status = VL53L1_WrByte(
@@ -1811,7 +1811,7 @@ static VL53L1_Error ChangePresetMode(VL53L1_DEV Dev)
 		Status = VL53L1_stop_range(Dev);
 
 	if (Status == VL53L1_ERROR_NONE)
-		Status = VL53L1_WaitUs(Dev, 500);
+		Status = VL53L1_WaitUs(Dev, 500); // XXX
 
 	if (Status == VL53L1_ERROR_NONE) {
 		PresetMode = PALDevDataGet(Dev,
