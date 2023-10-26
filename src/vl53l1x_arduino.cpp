@@ -9,29 +9,29 @@ VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t rgstr,
 {
     TwoWire * twoWire = (TwoWire *)pdev->I2Cx;
 
-    int status = 0;
-
     //Loop until the port is transmitted correctly
-    do
-    {
+    while (true) {
+
         twoWire->beginTransmission(pdev->devAddr);
         uint8_t buffer[2];
         buffer[0]=(uint8_t) (rgstr>>8);
         buffer[1]=(uint8_t) (rgstr&0xFF);
         twoWire->write(buffer, 2);
-        status = twoWire->endTransmission(false);
+        auto status = twoWire->endTransmission(false);
+
+#ifdef ARDUINO_ARCH_STM32
         //Fix for some STM32 boards
         //Reinitialize th i2c bus with the default parameters
-#ifdef ARDUINO_ARCH_STM32
-        if (status)
-        {
+        if (status) {
             twoWire->end();
             twoWire->begin();
         }
 #endif
-        //End of fix
+
+        if (!status) {
+            break;
+        }
     }
-    while(status != 0);
 
     twoWire->requestFrom((int)pdev->devAddr, (int) count);
 
