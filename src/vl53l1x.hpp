@@ -28,6 +28,8 @@
 
 #pragma once
 
+#include <Arduino.h>
+
 #include "vendor/vl53l1_api.h"
 #include "vendor/vl53l1_helpers.h"
 
@@ -89,7 +91,7 @@ class VL53L1X {
                 if (dataReady) {
                     break;
                 }
-                VL53L1_WaitUs(&_dev, 2000);
+                delay(2);
             }
 
             VL53L1_RangingMeasurementData_t rangingData;
