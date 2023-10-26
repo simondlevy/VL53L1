@@ -46,19 +46,21 @@ VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t index,
 }
 
 VL53L1_Error VL53L1_WriteMulti(VL53L1_Dev_t *pdev, uint16_t index, 
-        uint8_t * pdata, uint32_t count)
+        uint8_t * data, uint32_t count)
 {
     TwoWire * twoWire = (TwoWire *)pdev->I2Cx;
 
     twoWire->beginTransmission(pdev->devAddr);
-    uint8_t buffer[2];
+
+    static uint8_t buffer[256];
     buffer[0]=(uint8_t) (index>>8);
     buffer[1]=(uint8_t) (index&0xFF);
-    twoWire->write(buffer, 2);
-    for (uint16_t i = 0 ; i < count ; i++)
-        twoWire->write(pdata[i]);
+    memcpy(&buffer[2], data, count);
+
+    twoWire->write(buffer, count+2);
 
     twoWire->endTransmission(true);
+    
     return VL53L1_ERROR_NONE;
 }
 
