@@ -35,12 +35,9 @@ VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *dev, uint16_t rgstr,
 
     twoWire->requestFrom((int)dev->devAddr, (int) count);
 
-    int i=0;
-    while (twoWire->available()) {
-        pdata[i] = twoWire->read();
-        i++;
+    for (uint8_t k=0; twoWire->available(); ++k) {
+        pdata[k] = twoWire->read();
     }
-
 
     return VL53L1_ERROR_NONE;
 }
