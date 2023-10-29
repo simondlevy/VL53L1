@@ -28,7 +28,7 @@
 
 #include <Wire.h>
 
-#include "vl53l1_arduino.hpp"
+#include "vl53l1_arduino.h"
 
 static VL53L1_Arduino sensor; 
 

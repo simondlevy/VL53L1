@@ -28,7 +28,7 @@
 
 #include <Wire.h>
 
-#include "vl53l1_arduino.hpp"
+#include "vl53l1_arduino.h"
 
 static const uint8_t OLD_ADDRESS = 0x29;
 static const uint8_t NEW_ADDRESS = 0x31;
