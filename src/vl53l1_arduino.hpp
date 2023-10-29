@@ -28,16 +28,16 @@
 
 #pragma once
 
-#include "vl53l1x.hpp"
+#include "vl53l1.hpp"
 
 #include <Wire.h>
 
-class VL53L1X_Arduino : public VL53L1X {
+class VL53L1_Arduino : public VL53L1 {
 
     public:
 
-        VL53L1X_Arduino(TwoWire * twoWire=&Wire, const uint8_t devAddr=0x29) 
-            : VL53L1X((void *)twoWire)
+        VL53L1_Arduino(TwoWire * twoWire=&Wire, const uint8_t devAddr=0x29) 
+            : VL53L1((void *)twoWire)
         {
         }
 };

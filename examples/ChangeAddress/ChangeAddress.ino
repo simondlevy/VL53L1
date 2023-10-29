@@ -28,12 +28,12 @@
 
 #include <Wire.h>
 
-#include "vl53l1x_arduino.hpp"
+#include "vl53l1_arduino.hpp"
 
 static const uint8_t OLD_ADDRESS = 0x29;
 static const uint8_t NEW_ADDRESS = 0x31;
 
-static VL53L1X_Arduino sensor; 
+static VL53L1_Arduino sensor; 
 
 static bool success;
 

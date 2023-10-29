@@ -34,7 +34,7 @@
 #include "vendor/vl53l1_helpers.h"
 
 
-class VL53L1X {
+class VL53L1 {
 
     public:
 
@@ -120,11 +120,11 @@ class VL53L1X {
 
     protected:
 
-        VL53L1X(void)
+        VL53L1(void)
         {
         }
 
-        VL53L1X( void * i2c_device, const uint8_t devAddr=0x29)
+        VL53L1( void * i2c_device, const uint8_t devAddr=0x29)
         {
             _dev.I2Cx = i2c_device;
             _dev.devAddr = devAddr;
