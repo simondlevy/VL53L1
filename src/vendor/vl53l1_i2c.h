@@ -62,19 +62,16 @@
 
 #pragma once
 
-#include "vl53l1_api_strings.h"
-#include "vl53l1_api_core.h"
-
 #ifdef __cplusplus
 extern "C"
 {
 #endif
 
-VL53L1_Error VL53L1_WriteMulti(VL53L1_Dev_t *pdev, uint16_t index, 
-        uint8_t *pdata, uint32_t count);
+VL53L1_Error VL53L1_WriteMulti(VL53L1_Dev_t *dev, uint16_t rgstr, 
+        uint8_t *data, uint32_t count);
 
-VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *pdev, uint16_t index, 
-        uint8_t *pdata, uint32_t count);
+VL53L1_Error VL53L1_ReadMulti(VL53L1_Dev_t *dev, uint16_t rgstr, 
+        uint8_t *data, uint32_t count);
 
 
 #ifdef __cplusplus
