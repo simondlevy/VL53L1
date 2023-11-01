@@ -30,8 +30,8 @@
 
 #include <Arduino.h>
 
-#include "vendor/vl53l1_api.h"
-#include "vendor/vl53l1_helpers.h"
+#include "st/vl53l1_api.h"
+#include "st/vl53l1_helpers.h"
 
 
 class VL53L1 {
