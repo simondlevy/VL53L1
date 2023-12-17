@@ -33,7 +33,6 @@
 #include "st/vl53l1_api.h"
 #include "st/vl53l1_helpers.h"
 
-
 class VL53L1 {
 
     public:
@@ -45,6 +44,22 @@ class VL53L1 {
             DISTANCE_MODE_LONG
 
         } distanceMode_t;
+
+        /**
+         * Supports non-Arduino boards
+         */
+        VL53L1(void)
+        {
+        }
+
+        /**
+         * Supports non-Arduino boards
+         */
+        void init(void * i2c_device, const uint8_t devAddr=0x29)
+        {
+            _dev.I2Cx = i2c_device;
+            _dev.devAddr = devAddr;
+        }
 
         /**
          * Returns true on success, false on failure
@@ -66,7 +81,7 @@ class VL53L1 {
         /**
          * Returns true on success, false on failure
          */
-         bool begin(void)
+        bool begin(void)
         {
 
             auto status = VL53L1_DataInit(&_dev);
@@ -119,16 +134,6 @@ class VL53L1 {
         }
 
     protected:
-
-        VL53L1(void)
-        {
-        }
-
-        VL53L1( void * i2c_device, const uint8_t devAddr=0x29)
-        {
-            _dev.I2Cx = i2c_device;
-            _dev.devAddr = devAddr;
-        }
 
         VL53L1_Dev_t _dev;
 };
